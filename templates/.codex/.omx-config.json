@@ -1,0 +1,38 @@
+{
+  "notifications": {
+    "enabled": true,
+    "verbosity": "session",
+    "idleCooldownSeconds": 60,
+    "openclaw": {
+      "enabled": true,
+      "gateways": {
+        "local-openclaw": {
+          "type": "http",
+          "url": "__OPENCLAW_GATEWAY_URL__",
+          "headers": {
+            "Authorization": "Bearer __OPENCLAW_GATEWAY_TOKEN__"
+          },
+          "method": "POST",
+          "timeout": 10000
+        }
+      },
+      "hooks": {
+        "ask-user-question": {
+          "enabled": true,
+          "gateway": "local-openclaw",
+          "instruction": "Codex needs user input for {{projectPath}}. Question: {{question}}"
+        },
+        "stop": {
+          "enabled": true,
+          "gateway": "local-openclaw",
+          "instruction": "Codex session stopped for {{projectPath}}. Reason: {{reason}}"
+        },
+        "session-end": {
+          "enabled": true,
+          "gateway": "local-openclaw",
+          "instruction": "Codex session ended for {{projectPath}}. Reason: {{reason}}"
+        }
+      }
+    }
+  }
+}

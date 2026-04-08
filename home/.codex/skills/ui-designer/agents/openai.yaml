@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Designer"
+  short_description: "Design thoughtful, production-ready interfaces"
+  default_prompt: "Design and implement this UI with clear visual direction, responsive behavior, and accessibility checks."

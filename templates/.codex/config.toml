@@ -1,0 +1,695 @@
+# oh-my-codex top-level settings (must be before any [table])
+notify = ["node", "__OMX_NOTIFY_HOOK__"]
+model_reasoning_effort = "xhigh"
+developer_instructions = "You have oh-my-codex installed. AGENTS.md is your orchestration brain and the main orchestration surface. Use skill/keyword routing like $name plus spawned role-specialized subagents for specialized work. Codex native subagents are available via .codex/agents and may be used for independent parallel subtasks within a single session or team pane. Skills are loaded from installed SKILL.md files under .codex/skills, not from native agent TOMLs. Use workflow skills via $name when explicitly invoked or clearly routed by AGENTS.md. Treat installed prompts as narrower internal execution surfaces under AGENTS.md authority, even when user-facing docs prefer $name keywords."
+
+
+
+
+
+model = "gpt-5.4"
+disable_response_storage = true
+sandbox_mode = "danger-full-access"
+windows_wsl_setup_acknowledged = true
+approval_policy = "never"
+profile = "auto-max"
+file_opener = "vscode"
+skip_git_repo_check = true
+model_provider = "OpenAI"
+web_search = "cached"
+suppress_unstable_features_warning = true
+
+# MATLAB 超时配置：增加到 5 分钟（默认是 120 秒）
+shell_timeout_sec = 300
+
+review_model = "gpt-5.4"
+network_access = "enabled"
+model_context_window = 1000000
+model_auto_compact_token_limit = 900000
+[model_providers.OpenAI]
+name = "OpenAI"
+base_url = "__OPENAI_BASE_URL__"
+wire_api = "responses"
+requires_openai_auth = true
+
+[history]
+persistence = "save-all"
+
+[tui]
+notifications = true
+status_line = ["model-with-reasoning", "git-branch", "context-remaining", "total-input-tokens", "total-output-tokens", "five-hour-limit"]
+
+[shell_environment_policy]
+inherit = "all"
+ignore_default_excludes = false
+
+[sandbox_workspace_write]
+network_access = true
+
+[features]
+plan_tool = true
+apply_patch_freeform = true
+view_image_tool = true
+unified_exec = false
+streamable_shell = false
+rmcp_client = true
+elevated_windows_sandbox = true
+
+multi_agent = true
+child_agents_md = true
+[profiles.auto-max]
+approval_policy = "never"
+sandbox_mode = "danger-full-access"
+
+[profiles.review]
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+[notice]
+hide_gpt5_1_migration_prompt = true
+
+[mcp_servers.openviking_memory]
+url = "http://127.0.0.1:2033/mcp"
+startup_timeout_sec = 10.0
+[mcp_servers.drawio]
+enabled = false
+command = "npx"
+args = ["-y", "@drawio/mcp"]
+startup_timeout_sec = 120
+
+[mcp_servers.next_drawio_live]
+enabled = false
+command = "node"
+args = ["__HOME__/tmp/next-ai-draw-io/packages/mcp-server/dist/index.js"]
+startup_timeout_sec = 30
+
+[model_providers.gmn]
+name = "gmn"
+base_url = "https://cdn-gmn.chuangzuoli.com"
+
+requires_openai_auth = true
+[projects."__HOME__"]
+trust_level = "trusted"
+
+# OMX TUI StatusLine (Codex CLI v0.101.0+)
+# NOTE: Codex config allows only one [tui] table. omx setup appended a second one,
+# which breaks Codex parsing (duplicate key). Keep this as a comment; the real
+# status_line is already configured in the primary [tui] section near the top.
+# status_line = ["model-with-reasoning", "git-branch", "context-remaining", "total-input-tokens", "total-output-tokens", "five-hour-limit"]
+
+# ============================================================
+# End oh-my-codex
+
+# VoltAgent awesome-codex-subagents
+[agents."volt-api-designer"]
+description = 'Use when a task needs API contract design, evolution planning, or compatibility review before implementation starts.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/api-designer.toml'
+
+[agents."volt-backend-developer"]
+description = 'Use when a task needs scoped backend implementation or backend bug fixes after the owning path is known.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/backend-developer.toml'
+
+[agents."volt-code-mapper"]
+description = 'Use when the parent agent needs a high-confidence map of code paths, ownership boundaries, and execution flow before changes are made.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/code-mapper.toml'
+
+[agents."volt-electron-pro"]
+description = 'Use when a task needs Electron-specific implementation or debugging across main/renderer/preload boundaries, packaging, and desktop runtime behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/electron-pro.toml'
+
+[agents."volt-frontend-developer"]
+description = 'Use when a task needs scoped frontend implementation or UI bug fixes with production-level behavior and quality.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/frontend-developer.toml'
+
+[agents."volt-fullstack-developer"]
+description = 'Use when one bounded feature or bug spans frontend and backend and a single worker should own the entire path.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/fullstack-developer.toml'
+
+[agents."volt-graphql-architect"]
+description = 'Use when a task needs GraphQL schema evolution, resolver architecture, federation design, or distributed graph performance/security review.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/graphql-architect.toml'
+
+[agents."volt-microservices-architect"]
+description = 'Use when a task needs service-boundary design, inter-service contract review, or distributed-system architecture decisions.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/microservices-architect.toml'
+
+[agents."volt-mobile-developer"]
+description = 'Use when a task needs mobile implementation or debugging across app lifecycle, API integration, and device/platform-specific UX constraints.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/mobile-developer.toml'
+
+[agents."volt-ui-designer"]
+description = 'Use when a task needs concrete UI decisions, interaction design, and implementation-ready design guidance before or during development.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/ui-designer.toml'
+
+[agents."volt-ui-fixer"]
+description = 'Use when a UI issue is already reproduced and the parent agent wants the smallest safe patch.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/ui-fixer.toml'
+
+[agents."volt-websocket-engineer"]
+description = 'Use when a task needs real-time transport and state work across WebSocket lifecycle, message contracts, and reconnect/failure behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/01-core-development/websocket-engineer.toml'
+
+[agents."volt-angular-architect"]
+description = 'Use when a task needs Angular-specific help for component architecture, dependency injection, routing, signals, or enterprise application structure.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/angular-architect.toml'
+
+[agents."volt-cpp-pro"]
+description = 'Use when a task needs C++ work involving performance-sensitive code, memory ownership, concurrency, or systems-level integration.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/cpp-pro.toml'
+
+[agents."volt-csharp-developer"]
+description = 'Use when a task needs C# or .NET application work involving services, APIs, async flows, or application architecture.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/csharp-developer.toml'
+
+[agents."volt-django-developer"]
+description = 'Use when a task needs Django-specific work across models, views, forms, ORM behavior, or admin and middleware flows.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/django-developer.toml'
+
+[agents."volt-dotnet-core-expert"]
+description = 'Use when a task needs modern .NET and ASP.NET Core expertise for APIs, hosting, middleware, or cross-platform application behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/dotnet-core-expert.toml'
+
+[agents."volt-dotnet-framework-4.8-expert"]
+description = 'Use when a task needs .NET Framework 4.8 expertise for legacy enterprise applications, compatibility constraints, or Windows-bound integrations.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/dotnet-framework-4.8-expert.toml'
+
+[agents."volt-elixir-expert"]
+description = 'Use when a task needs Elixir and OTP expertise for processes, supervision, fault tolerance, or Phoenix application behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/elixir-expert.toml'
+
+[agents."volt-erlang-expert"]
+description = 'Use when a task needs Erlang/OTP and rebar3 expertise for BEAM processes, testing, releases, upgrades, or distributed runtime behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/erlang-expert.toml'
+
+[agents."volt-flutter-expert"]
+description = 'Use when a task needs Flutter work across widgets, rendering, state management, platform channels, or mobile build behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/flutter-expert.toml'
+
+[agents."volt-golang-pro"]
+description = 'Use when a task needs Go work involving concurrency, network services, performance, or production-grade backend behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/golang-pro.toml'
+
+[agents."volt-java-architect"]
+description = 'Use when a task needs Java-specific architecture or implementation decisions around services, frameworks, JVM runtime behavior, or enterprise design constraints.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/java-architect.toml'
+
+[agents."volt-javascript-pro"]
+description = 'Use when a task needs JavaScript application work involving runtime behavior, async control flow, browser/server execution, or ecosystem integration.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/javascript-pro.toml'
+
+[agents."volt-kotlin-specialist"]
+description = 'Use when a task needs Kotlin application work involving modern JVM patterns, coroutines, or multiplatform/mobile-adjacent architecture.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/kotlin-specialist.toml'
+
+[agents."volt-laravel-specialist"]
+description = 'Use when a task needs Laravel-specific work across Eloquent, queues, jobs, service providers, or PHP application architecture.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/laravel-specialist.toml'
+
+[agents."volt-nextjs-developer"]
+description = 'Use when a task needs Next.js-specific help across App Router, data fetching, rendering strategy, server/client boundaries, or Vercel deployment behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/nextjs-developer.toml'
+
+[agents."volt-php-pro"]
+description = 'Use when a task needs PHP application work involving web backends, legacy integration, request lifecycle behavior, or framework-agnostic service logic.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/php-pro.toml'
+
+[agents."volt-powershell-5.1-expert"]
+description = 'Use when a task targets Windows PowerShell 5.1, full .NET Framework automation, Windows-only modules, COM/WMI/DCOM interop, or legacy enterprise scripts constrained to 5.1.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/powershell-5.1-expert.toml'
+
+[agents."volt-powershell-7-expert"]
+description = 'Use when a task needs PowerShell 7+ expertise across cross-platform automation, scripting, modern modules, remoting, or .NET integration.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/powershell-7-expert.toml'
+
+[agents."volt-python-pro"]
+description = 'Use when a task needs Python work involving application logic, frameworks, packaging, automation, or production system behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/python-pro.toml'
+
+[agents."volt-rails-expert"]
+description = 'Use when a task needs Ruby on Rails-specific work across models, controllers, background jobs, routing, or convention-heavy application behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/rails-expert.toml'
+
+[agents."volt-react-specialist"]
+description = 'Use when a task needs React-specific help across component design, state, hooks, rendering behavior, or app architecture.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/react-specialist.toml'
+
+[agents."volt-rust-engineer"]
+description = 'Use when a task needs Rust implementation or debugging involving ownership, async execution, systems integration, or performance-sensitive code.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/rust-engineer.toml'
+
+[agents."volt-spring-boot-engineer"]
+description = 'Use when a task needs Spring Boot-specific work across REST APIs, configuration, data access, messaging, or operational behavior in Java services.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/spring-boot-engineer.toml'
+
+[agents."volt-sql-pro"]
+description = 'Use when a task needs SQL design or debugging involving joins, transactions, indexing, query plans, or dialect-specific behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/sql-pro.toml'
+
+[agents."volt-swift-expert"]
+description = 'Use when a task needs Swift work for iOS/macOS apps, app lifecycle behavior, platform APIs, or performance-sensitive native code.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/swift-expert.toml'
+
+[agents."volt-typescript-pro"]
+description = 'Use when a task needs TypeScript work involving type design, generics, complex inference, or large-scale application safety.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/typescript-pro.toml'
+
+[agents."volt-vue-expert"]
+description = 'Use when a task needs Vue-specific help across Composition API, reactivity, routing, state management, or frontend architecture.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/02-language-specialists/vue-expert.toml'
+
+[agents."volt-azure-infra-engineer"]
+description = 'Use when a task needs Azure infrastructure design or implementation across subscriptions, networking, security, automation, or PowerShell-based operations.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/azure-infra-engineer.toml'
+
+[agents."volt-cloud-architect"]
+description = 'Use when a task needs cloud architecture decisions across AWS/GCP/Azure involving networking, identity, deployment strategy, cost, or resilience.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/cloud-architect.toml'
+
+[agents."volt-database-administrator"]
+description = 'Use when a task needs database administration help involving operations, backups, migration safety, access control, or production runtime management.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/database-administrator.toml'
+
+[agents."volt-deployment-engineer"]
+description = 'Use when a task needs deployment workflow design or debugging across release automation, packaging, environment promotion, or rollback planning.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/deployment-engineer.toml'
+
+[agents."volt-devops-engineer"]
+description = 'Use when a task needs CI/CD, automation, infrastructure tooling, or build-and-release workflow work.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/devops-engineer.toml'
+
+[agents."volt-devops-incident-responder"]
+description = 'Use when a production incident spans CI/CD, infra changes, deployments, service health, or ops runbooks and needs rapid containment plus clear next actions.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/devops-incident-responder.toml'
+
+[agents."volt-docker-expert"]
+description = 'Use when a task needs Docker-specific containerization, image build/debugging, Compose behavior, or runtime isolation work.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/docker-expert.toml'
+
+[agents."volt-incident-responder"]
+description = 'Use when a task needs urgent investigation of a live or recent service/system incident with focus on containment, impact, and next-step diagnostics.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/incident-responder.toml'
+
+[agents."volt-kubernetes-specialist"]
+description = 'Use when a task needs Kubernetes-specific work across manifests, controllers, networking, scaling, or cluster operational behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/kubernetes-specialist.toml'
+
+[agents."volt-network-engineer"]
+description = 'Use when a task needs network design or debugging across routing, DNS, load balancing, firewalls, proxies, or connectivity behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/network-engineer.toml'
+
+[agents."volt-platform-engineer"]
+description = 'Use when a task needs internal platform, environment, or developer platform architecture work spanning standards, provisioning, and shared runtime behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/platform-engineer.toml'
+
+[agents."volt-security-engineer"]
+description = 'Use when a task needs infrastructure or platform security design and implementation, especially around identity, secrets, hardening, or exposure reduction.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/security-engineer.toml'
+
+[agents."volt-sre-engineer"]
+description = 'Use when a task needs reliability engineering, SLO/SLI work, scaling strategy, observability, or operational stability improvements.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/sre-engineer.toml'
+
+[agents."volt-terraform-engineer"]
+description = 'Use when a task needs Terraform-specific infrastructure-as-code design, refactoring, module structure, state handling, or plan/apply safety review.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/terraform-engineer.toml'
+
+[agents."volt-terragrunt-expert"]
+description = 'Use when a task needs Terragrunt-specific architecture, DRY stack orchestration, dependency wiring, repo layout, or troubleshooting around Terragrunt-managed Terraform.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/terragrunt-expert.toml'
+
+[agents."volt-windows-infra-admin"]
+description = 'Use when a task involves Windows infrastructure administration with focus on Active Directory, DNS, DHCP, Group Policy, remote management, and enterprise automation on Windows Server.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/03-infrastructure/windows-infra-admin.toml'
+
+[agents."volt-accessibility-tester"]
+description = 'Use when a task needs accessibility review or implementation guidance across semantics, keyboard flow, screen reader behavior, or WCAG-oriented risk detection.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/accessibility-tester.toml'
+
+[agents."volt-ad-security-reviewer"]
+description = 'Use when changes touch Active Directory, Group Policy, Windows identity infrastructure, authentication flows, delegation, tiering, PowerShell admin tooling, or enterprise access boundaries.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/ad-security-reviewer.toml'
+
+[agents."volt-architect-reviewer"]
+description = 'Use when a task needs a design-level review of system boundaries, interfaces, scalability, resilience, or maintainability before or after implementation.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/architect-reviewer.toml'
+
+[agents."volt-browser-debugger"]
+description = 'Use when a task needs browser-based reproduction, client-side debugging, DOM/network inspection, or frontend behavior verification.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/browser-debugger.toml'
+
+[agents."volt-chaos-engineer"]
+description = 'Use when a task needs resilience validation through failure injection, degradation planning, recovery-path review, or fault tolerance analysis.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/chaos-engineer.toml'
+
+[agents."volt-code-reviewer"]
+description = 'Use when a task needs deep review of changed code for correctness, regressions, security, and maintainability before merge or handoff.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/code-reviewer.toml'
+
+[agents."volt-compliance-auditor"]
+description = 'Use when a task needs compliance-oriented review of systems, controls, data handling, or implementation choices against policy or regulatory expectations.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/compliance-auditor.toml'
+
+[agents."volt-debugger"]
+description = 'Use when a task needs root-cause analysis of a bug, crash, regression, or unexpected runtime behavior before or during a fix.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/debugger.toml'
+
+[agents."volt-error-detective"]
+description = 'Use when a task centers on error messages, logs, stack traces, or recurring failure signatures and needs focused diagnosis with minimal scope creep.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/error-detective.toml'
+
+[agents."volt-penetration-tester"]
+description = 'Use when a task needs adversarial security assessment, exploit-path analysis, or offensive-style review of application or infrastructure weaknesses.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/penetration-tester.toml'
+
+[agents."volt-performance-engineer"]
+description = 'Use when a task needs performance diagnosis or optimization involving latency, throughput, memory, CPU, query plans, or load behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/performance-engineer.toml'
+
+[agents."volt-powershell-security-hardening"]
+description = 'Use when a task needs PowerShell security review or hardening across script execution, remoting, JEA, signing, logging, AMSI, Constrained Language Mode, policy, or Windows enterprise automation risk.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/powershell-security-hardening.toml'
+
+[agents."volt-qa-expert"]
+description = 'Use when a task needs test strategy, test-case design, automation planning, or quality risk analysis before release.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/qa-expert.toml'
+
+[agents."volt-reviewer"]
+description = 'Use when a task needs a targeted PR-style review for correctness, security, regressions, missing tests, and merge risk.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/reviewer.toml'
+
+[agents."volt-security-auditor"]
+description = 'Use when a task needs security-focused review of application logic, auth boundaries, secrets handling, data exposure, or exploitability risk.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/security-auditor.toml'
+
+[agents."volt-test-automator"]
+description = 'Use when a task needs automated test implementation or extension across unit, integration, or end-to-end layers with maintainable coverage.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/04-quality-security/test-automator.toml'
+
+[agents."volt-ai-engineer"]
+description = 'Use when a task needs AI system design or implementation across model integration, evaluation loops, inference orchestration, prompt flows, or production AI features.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/ai-engineer.toml'
+
+[agents."volt-data-analyst"]
+description = 'Use when a task needs data interpretation, KPI analysis, dashboard logic review, or findings synthesis from structured datasets.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/data-analyst.toml'
+
+[agents."volt-data-engineer"]
+description = 'Use when a task needs data pipeline architecture, ETL/ELT implementation, warehouse modeling, or production-grade data movement design.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/data-engineer.toml'
+
+[agents."volt-data-scientist"]
+description = 'Use when a task needs statistical analysis, experiment design, model selection reasoning, feature analysis, or insight generation from data.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/data-scientist.toml'
+
+[agents."volt-database-optimizer"]
+description = 'Use when a task needs database performance review or optimization across schema design, indexing, query execution, or operational bottlenecks.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/database-optimizer.toml'
+
+[agents."volt-llm-architect"]
+description = 'Use when a task needs architecture decisions for LLM-based systems, RAG pipelines, agent frameworks, evaluation loops, or model orchestration.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/llm-architect.toml'
+
+[agents."volt-machine-learning-engineer"]
+description = 'Use when a task needs production ML system implementation or review involving training pipelines, serving, features, evaluation, and operational integration.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/machine-learning-engineer.toml'
+
+[agents."volt-ml-engineer"]
+description = 'Use when a task needs machine learning implementation, debugging, training/inference logic, or model integration into applications.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/ml-engineer.toml'
+
+[agents."volt-mlops-engineer"]
+description = 'Use when a task needs MLOps design or implementation across training pipelines, deployment workflows, model versioning, or monitoring in production.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/mlops-engineer.toml'
+
+[agents."volt-nlp-engineer"]
+description = 'Use when a task needs NLP implementation or review involving text processing, embeddings, retrieval, classification, sequence models, or language-focused evaluation.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/nlp-engineer.toml'
+
+[agents."volt-postgres-pro"]
+description = 'Use when a task needs PostgreSQL-specific design, optimization, migrations, operational review, or query/index tuning beyond generic SQL.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/postgres-pro.toml'
+
+[agents."volt-prompt-engineer"]
+description = 'Use when a task needs prompt design, prompt debugging, evaluation criteria, or structured LLM interaction design for reliability and quality.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/05-data-ai/prompt-engineer.toml'
+
+[agents."volt-build-engineer"]
+description = 'Use when a task needs build-system investigation, CI build failure diagnosis, bundling, compilation pipeline changes, or release artifact correctness.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/build-engineer.toml'
+
+[agents."volt-cli-developer"]
+description = 'Use when a task needs command-line tool design or implementation, argument UX, shell integration, or scripting ergonomics.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/cli-developer.toml'
+
+[agents."volt-dependency-manager"]
+description = 'Use when a task needs dependency upgrades, package graph analysis, version conflict resolution, or supply-chain-aware library decisions.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/dependency-manager.toml'
+
+[agents."volt-documentation-engineer"]
+description = 'Use when a task needs technical documentation, onboarding guides, architecture notes, API docs, or change communication written with engineering accuracy.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/documentation-engineer.toml'
+
+[agents."volt-dx-optimizer"]
+description = 'Use when a task needs developer-experience improvements across local setup, workflows, tooling friction, repo ergonomics, or feedback-loop speed.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/dx-optimizer.toml'
+
+[agents."volt-git-workflow-manager"]
+description = 'Use when a task needs git workflow design, branch/release strategy, cherry-pick planning, merge sequencing, or history hygiene guidance.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/git-workflow-manager.toml'
+
+[agents."volt-legacy-modernizer"]
+description = 'Use when a task needs modernization planning or implementation for legacy code, frameworks, or platforms with high compatibility risk.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/legacy-modernizer.toml'
+
+[agents."volt-mcp-developer"]
+description = 'Use when a task needs MCP server/client design, tool schemas, capability exposure, or Model Context Protocol implementation guidance.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/mcp-developer.toml'
+
+[agents."volt-powershell-module-architect"]
+description = 'Use when a task needs PowerShell module or profile architecture with emphasis on public/private function boundaries, manifests, compatibility, packaging, autoloading, and long-term maintainability.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/powershell-module-architect.toml'
+
+[agents."volt-powershell-ui-architect"]
+description = 'Use when a task needs PowerShell UI or TUI work involving WinForms, WPF, MAUI-hosted tools, Terminal.Gui, Spectre.Console, or interactive admin experiences.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/powershell-ui-architect.toml'
+
+[agents."volt-refactoring-specialist"]
+description = 'Use when a task needs structural code changes that preserve behavior while improving clarity, modularity, or maintainability.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/refactoring-specialist.toml'
+
+[agents."volt-slack-expert"]
+description = 'Use when a task needs Slack platform work involving Bolt apps, Block Kit UX, OAuth, interactivity, or workspace-integrated automation.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/slack-expert.toml'
+
+[agents."volt-tooling-engineer"]
+description = 'Use when a task needs dev tooling design or implementation across linters, generators, code mods, internal tooling, or productivity automation.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/06-developer-experience/tooling-engineer.toml'
+
+[agents."volt-api-documenter"]
+description = 'Use when a task needs API documentation, endpoint docs, schema explanation, or developer-facing integration guidance.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/api-documenter.toml'
+
+[agents."volt-blockchain-developer"]
+description = 'Use when a task needs blockchain or smart-contract work, Web3 integration, wallet interactions, or chain-specific application behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/blockchain-developer.toml'
+
+[agents."volt-embedded-systems"]
+description = 'Use when a task needs embedded or real-time systems work involving hardware interfaces, firmware constraints, timing behavior, or low-level integration.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/embedded-systems.toml'
+
+[agents."volt-fintech-engineer"]
+description = 'Use when a task needs financial systems design or implementation involving money movement, ledger logic, reconciliation, compliance-sensitive flows, or high-stakes transaction correctness.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/fintech-engineer.toml'
+
+[agents."volt-game-developer"]
+description = 'Use when a task needs game-system implementation or debugging involving gameplay loops, rendering behavior, engine integration, state transitions, or performance-sensitive interactive features.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/game-developer.toml'
+
+[agents."volt-iot-engineer"]
+description = 'Use when a task needs IoT system design or implementation across devices, telemetry, edge/cloud coordination, provisioning, or constrained-environment behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/iot-engineer.toml'
+
+[agents."volt-m365-admin"]
+description = 'Use when a task involves Microsoft 365 administration, Exchange Online, Teams, SharePoint Online, Entra ID integration, licensing, compliance, or tenant-level PowerShell automation.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/m365-admin.toml'
+
+[agents."volt-mobile-app-developer"]
+description = 'Use when a task needs mobile app feature or bug work across native/hybrid app flows, device behavior, push, storage, or client-side integration.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/mobile-app-developer.toml'
+
+[agents."volt-payment-integration"]
+description = 'Use when a task needs payment flow integration or review involving gateways, tokens, webhooks, settlement logic, or transaction failure handling.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/payment-integration.toml'
+
+[agents."volt-quant-analyst"]
+description = 'Use when a task needs quantitative analysis, financial modeling logic, statistical trading assumptions, or risk/return-oriented analytical review.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/quant-analyst.toml'
+
+[agents."volt-risk-manager"]
+description = 'Use when a task needs risk-oriented review of systems, financial logic, operational controls, or implementation choices with downside exposure.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/risk-manager.toml'
+
+[agents."volt-seo-specialist"]
+description = 'Use when a task needs SEO-focused review or implementation involving crawlability, metadata, site structure, performance signals, or search visibility.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/07-specialized-domains/seo-specialist.toml'
+
+[agents."volt-business-analyst"]
+description = 'Use when a task needs business process analysis, requirements breakdown, stakeholder-facing framing, or operational logic clarification.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/business-analyst.toml'
+
+[agents."volt-content-marketer"]
+description = 'Use when a task needs product/content messaging, marketing asset drafting, launch copy, or positioning-oriented written output.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/content-marketer.toml'
+
+[agents."volt-customer-success-manager"]
+description = 'Use when a task needs customer onboarding, adoption, support-handling, or user-facing success planning tied to product or implementation work.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/customer-success-manager.toml'
+
+[agents."volt-legal-advisor"]
+description = 'Use when a task needs issue spotting around legal/compliance implications in contracts, policies, product behavior, or regulated implementation choices.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/legal-advisor.toml'
+
+[agents."volt-product-manager"]
+description = 'Use when a task needs product framing, requirement shaping, scope decisions, prioritization, or acceptance criteria before implementation.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/product-manager.toml'
+
+[agents."volt-project-manager"]
+description = 'Use when a task needs execution planning, dependency sequencing, milestone management, or delivery coordination across multiple workstreams.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/project-manager.toml'
+
+[agents."volt-sales-engineer"]
+description = 'Use when a task needs solution framing, technical sales support, architecture explanation, or implementation guidance aligned to customer adoption.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/sales-engineer.toml'
+
+[agents."volt-scrum-master"]
+description = 'Use when a task needs Agile execution guidance, sprint process support, backlog flow clarification, or delivery cadence optimization.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/scrum-master.toml'
+
+[agents."volt-technical-writer"]
+description = 'Use when a task needs precise technical writing such as docs, guides, release notes, migration docs, or user-facing engineering explanations.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/technical-writer.toml'
+
+[agents."volt-ux-researcher"]
+description = 'Use when a task needs user-research framing, usability analysis, research synthesis, or decision support for product and interaction design.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/ux-researcher.toml'
+
+[agents."volt-wordpress-master"]
+description = 'Use when a task needs WordPress implementation or debugging across themes, plugins, hooks, admin flows, performance, or deployment behavior.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/08-business-product/wordpress-master.toml'
+
+[agents."volt-agent-installer"]
+description = 'Use when the parent agent needs help selecting, organizing, or installing purpose-fit subagents for the task at hand.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/agent-installer.toml'
+
+[agents."volt-agent-organizer"]
+description = 'Use when the parent agent needs agent selection strategy, capability mapping, or orchestration planning before delegating work.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/agent-organizer.toml'
+
+[agents."volt-context-manager"]
+description = 'Use when the parent agent needs help structuring, compressing, or sequencing context so downstream work stays coherent and on-task.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/context-manager.toml'
+
+[agents."volt-error-coordinator"]
+description = 'Use when multiple failures, retries, or cross-cutting issues need coordinated diagnosis and next-step routing without losing scope control.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/error-coordinator.toml'
+
+[agents."volt-it-ops-orchestrator"]
+description = 'Use when a task spans IT operations coordination, infrastructure change sequencing, rollout safety, or incident-linked execution planning.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/it-ops-orchestrator.toml'
+
+[agents."volt-knowledge-synthesizer"]
+description = 'Use when the parent agent needs structured synthesis across multiple findings, documents, or analyses into one clear decision-oriented output.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/knowledge-synthesizer.toml'
+
+[agents."volt-multi-agent-coordinator"]
+description = 'Use when a task should be decomposed across multiple subagents and the parent agent needs a concrete coordination plan, ownership model, and integration strategy.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/multi-agent-coordinator.toml'
+
+[agents."volt-performance-monitor"]
+description = 'Use when the parent agent needs monitoring-oriented analysis of runtime, throughput, latency, or execution bottlenecks across a workflow or system.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/performance-monitor.toml'
+
+[agents."volt-task-distributor"]
+description = 'Use when a task needs clear task slicing, ownership allocation, and execution sequencing for parallel or staged subagent work.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/task-distributor.toml'
+
+[agents."volt-workflow-orchestrator"]
+description = 'Use when a task spans multiple phases or specialties and the parent agent needs end-to-end workflow structure, gating, and handoff planning.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/09-meta-orchestration/workflow-orchestrator.toml'
+
+[agents."volt-competitive-analyst"]
+description = 'Use when a task needs competitor comparison, landscape analysis, or differentiator synthesis relative to a technical product or solution.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/10-research-analysis/competitive-analyst.toml'
+
+[agents."volt-data-researcher"]
+description = 'Use when a task needs targeted research into data sources, dataset options, schema implications, or measurement feasibility.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/10-research-analysis/data-researcher.toml'
+
+[agents."volt-docs-researcher"]
+description = 'Use when a task needs documentation-backed verification of APIs, version-specific behavior, or framework options.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/10-research-analysis/docs-researcher.toml'
+
+[agents."volt-market-researcher"]
+description = 'Use when a task needs market landscape, positioning, or demand-side research tied to a technical product or category.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/10-research-analysis/market-researcher.toml'
+
+[agents."volt-research-analyst"]
+description = 'Use when a task needs a structured investigation of a technical topic, implementation approach, or design question.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/10-research-analysis/research-analyst.toml'
+
+[agents."volt-search-specialist"]
+description = 'Use when a task needs fast, high-signal searching of the codebase or external sources before deeper analysis begins.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/10-research-analysis/search-specialist.toml'
+
+[agents."volt-trend-analyst"]
+description = 'Use when a task needs trend synthesis across technology shifts, adoption patterns, or emerging implementation directions.'
+config_file = '__HOME__/vendor_imports/awesome-codex-subagents/categories/10-research-analysis/trend-analyst.toml'
+
+[env]
+USE_OMX_EXPLORE_CMD = "1"
+
+[agents]
+max_threads = 6
+max_depth = 2
+
+# ============================================================
+# oh-my-codex (OMX) Configuration
+# Managed by omx setup - manual edits preserved on next setup
+# ============================================================
+
+# OMX State Management MCP Server
+[mcp_servers.omx_state]
+command = "node"
+args = ["__HOME__/.volta/tools/image/packages/oh-my-codex/lib/node_modules/oh-my-codex/dist/mcp/state-server.js"]
+enabled = true
+startup_timeout_sec = 5
+
+# OMX Project Memory MCP Server
+[mcp_servers.omx_memory]
+command = "node"
+args = ["__HOME__/.volta/tools/image/packages/oh-my-codex/lib/node_modules/oh-my-codex/dist/mcp/memory-server.js"]
+enabled = true
+startup_timeout_sec = 5
+
+# OMX Code Intelligence MCP Server (LSP diagnostics, AST search)
+[mcp_servers.omx_code_intel]
+command = "node"
+args = ["__HOME__/.volta/tools/image/packages/oh-my-codex/lib/node_modules/oh-my-codex/dist/mcp/code-intel-server.js"]
+enabled = true
+startup_timeout_sec = 10
+
+# OMX Trace MCP Server (agent flow timeline & statistics)
+[mcp_servers.omx_trace]
+command = "node"
+args = ["__HOME__/.volta/tools/image/packages/oh-my-codex/lib/node_modules/oh-my-codex/dist/mcp/trace-server.js"]
+enabled = true
+startup_timeout_sec = 5
+
+# OMX Team MCP Server (team job lifecycle: start, status, wait, cleanup)
+[mcp_servers.omx_team_run]
+command = "node"
+args = ["__HOME__/.volta/tools/image/packages/oh-my-codex/lib/node_modules/oh-my-codex/dist/mcp/team-server.js"]
+enabled = true
+startup_timeout_sec = 5
+# ============================================================
+# End oh-my-codex

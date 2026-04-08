@@ -1,0 +1,88 @@
+{
+  "version": 3,
+  "skills": {
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-01T04:56:29.495Z",
+      "updatedAt": "2026-03-01T04:56:29.495Z"
+    },
+    "azure-ai": {
+      "source": "microsoft/github-copilot-for-azure",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/microsoft/github-copilot-for-azure.git",
+      "skillPath": "plugin/skills/azure-ai/SKILL.md",
+      "skillFolderHash": "238e79c3c9e0a17904faa138a8b95c0bbd9f67cd",
+      "installedAt": "2026-03-01T04:57:48.287Z",
+      "updatedAt": "2026-03-01T04:57:48.287Z"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-01T05:14:13.933Z",
+      "updatedAt": "2026-03-01T05:14:13.933Z"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "skillFolderHash": "",
+      "pluginName": "example-skills",
+      "installedAt": "2026-03-01T05:14:17.467Z",
+      "updatedAt": "2026-03-01T05:14:17.467Z"
+    },
+    "agent-browser": {
+      "source": "inference-sh-9/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/inference-sh-9/skills.git",
+      "skillPath": "skills/agentic-browser/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-01T05:14:21.168Z",
+      "updatedAt": "2026-03-01T05:14:21.168Z"
+    },
+    "ai-image-generation": {
+      "source": "inference-sh-9/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/inference-sh-9/skills.git",
+      "skillPath": "skills/ai-image-generation/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-01T05:14:24.714Z",
+      "updatedAt": "2026-03-01T05:14:24.714Z"
+    },
+    "ai-video-generation": {
+      "source": "inference-sh-9/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/inference-sh-9/skills.git",
+      "skillPath": "skills/ai-video-generation/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-01T05:14:28.031Z",
+      "updatedAt": "2026-03-01T05:14:28.031Z"
+    },
+    "agent-tools": {
+      "source": "inference-sh-9/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/inference-sh-9/skills.git",
+      "skillPath": "skills/agent-tools/SKILL.md",
+      "skillFolderHash": "",
+      "installedAt": "2026-03-01T05:14:31.480Z",
+      "updatedAt": "2026-03-01T05:14:31.480Z"
+    },
+    "oh-my-codex": {
+      "source": "supercent-io/skills-template",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/supercent-io/skills-template.git",
+      "skillPath": ".agent-skills/oh-my-codex/SKILL.md",
+      "skillFolderHash": "cf113e96b87577e47d86fb8a157536fbeb27369c",
+      "installedAt": "2026-03-02T13:16:16.212Z",
+      "updatedAt": "2026-03-02T13:16:16.212Z"
+    }
+  },
+  "dismissed": {}
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude Supervisor + Codex Worker"
+  short_description: "Claude plans/reviews while Codex executes tasks"
+  default_prompt: "让 Claude 监工并驱动 Codex 完成这个任务："

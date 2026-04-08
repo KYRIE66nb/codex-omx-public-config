@@ -1,0 +1,4 @@
+interface:
+  display_name: "ER JSON to DOT Workflow"
+  short_description: "Two-stage ER extraction to JSON then DOT output"
+  default_prompt: "Extract ER structure in strict JSON first, then output Graphviz DOT only after explicit user confirmation."

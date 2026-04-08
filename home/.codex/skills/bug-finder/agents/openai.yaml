@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bug Finder"
+  short_description: "Reproduce and fix software defects"
+  default_prompt: "Debug this issue end-to-end: reproduce, isolate root cause, apply a minimal fix, and verify with tests."
