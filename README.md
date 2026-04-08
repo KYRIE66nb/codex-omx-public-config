@@ -53,7 +53,7 @@ npm install -g @openai/codex oh-my-codex
 2. 克隆本仓库到任意目录:
 
 ```bash
-git clone <this-repo-url>
+git clone https://github.com/KYRIE66nb/codex-omx-public-config.git
 cd codex-omx-public-config
 ```
 
@@ -108,4 +108,3 @@ OMX_NOTIFY_HOOK="/path/to/oh-my-codex/dist/scripts/notify-hook.js"
 - 这是“公开版行为快照”，重点是复刻工作流和编排行为，不是裸拷运行痕迹。
 - `templates/.codex/.omx-config.json` 的 OpenClaw 网关在没有 token 时会被安装脚本自动禁用。
 - `templates/.claude/api-key-helper.sh` 会从 `~/.config/codex/env` 读取 `ANTHROPIC_AUTH_TOKEN`。
-
