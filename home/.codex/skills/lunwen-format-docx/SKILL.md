@@ -1,6 +1,6 @@
 ---
 name: lunwen-format-docx
-description: Use when a Chinese thesis or thesis-style report task requires template application, Word style repair, TOC/heading-number fixes, `.doc` to `.docx` conversion, or final `.docx` manuscript delivery.
+description: "Format Chinese thesis DOCX."
 ---
 
 # Lunwen Format Docx

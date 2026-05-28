@@ -1,13 +1,13 @@
 ---
 name: team
-description: N coordinated agents on shared task list using tmux-based orchestration
+description: "[OMX] N coordinated agents on shared task list using tmux-based orchestration"
 ---
 
 # Team Skill
 
 `$team` is the tmux-based parallel execution mode for OMX. It starts real worker Codex and/or Claude CLI sessions in split panes and coordinates them through `.omx/state/team/...` files plus CLI team interop (`omx team api ...`) and state files.
 
-This skill is operationally sensitive. Treat it as an operator workflow, not a generic prompt pattern.
+This skill is operationally sensitive. Treat it as an operator workflow, not a generic prompt pattern. In Codex App or plain outside-tmux sessions, do not present `$team` / `omx team` as directly available; launch OMX CLI from shell first, or stay on the nearest app-safe surface until the user explicitly wants the tmux runtime.
 
 ## Team vs Native Subagents
 
@@ -17,20 +17,18 @@ This skill is operationally sensitive. Treat it as an operator workflow, not a g
 
 ## What This Skill Must Do
 
-## GPT-5.4 Guidance Alignment
+## GPT-5.5 Guidance Alignment
 
-- Default to concise, evidence-dense progress and completion reporting unless the user or risk level requires more detail.
-- Treat newer user task updates as local overrides for the active workflow branch while preserving earlier non-conflicting constraints.
-- If correctness depends on additional inspection, retrieval, execution, or verification, keep using the relevant tools until the team workflow is grounded.
-- Continue through clear, low-risk, reversible next steps automatically; ask only when the next step is materially branching, destructive, or preference-dependent.
+Use the shared workflow guidance pattern: outcome-first framing, concise visible updates for multi-step work, local overrides for the active workflow branch, validation proportional to risk, explicit stop rules, and automatic continuation for safe reversible steps. Ask only for material, destructive, credentialed, external-production, or preference-dependent branches.
 
 When user triggers `$team`, the agent must:
 
 1. Invoke OMX runtime directly with `omx team ...`
 2. Avoid replacing the flow with in-process `spawn_agent` fanout
 3. Verify startup and surface concrete state/pane evidence
-4. Keep team state alive until workers are terminal (unless explicit abort)
-5. Handle cleanup and stale-pane recovery when needed
+4. If active team mode state is missing, initialize/sync it from canonical team runtime state before proceeding
+5. Keep team state alive until workers are terminal (unless explicit abort)
+6. Handle cleanup and stale-pane recovery when needed
 
 If `omx team` is unavailable, stop with a hard error.
 
@@ -58,6 +56,12 @@ requiring a separate linked Ralph launch up front.
 - **Verification ownership:** keep one lane focused on tests, regression coverage, and evidence before shutdown.
 - **Escalation:** start a separate `omx ralph ...` / `$ralph ...` only when a later manual follow-up still needs a persistent single-owner fix/verification loop.
 - **Deprecation:** `omx team ralph ...` has been removed. Use plain `omx team ...` for team execution or run `omx ralph ...` separately when you explicitly want a later Ralph loop.
+
+### Team + Ultragoal bridge
+
+Use `$ultragoal` for durable leader-owned goal/ledger tracking and `$team` for parallel execution lanes. When Team is launched with an active `.omx/ultragoal/goals.json`, worker inboxes/status may include leader-owned Ultragoal context: `.omx/ultragoal/goals.json`, `.omx/ultragoal/ledger.jsonl`, the active goal id, Codex goal mode, and the `fresh_leader_get_goal_required` checkpoint policy.
+
+Workers provide task status and verification evidence only. They do not own Ultragoal goal state, create worker ledgers, mutate `.omx/ultragoal`, auto-launch Team from Ultragoal, or perform hidden Codex goal mutation. The leader uses terminal Team evidence plus a fresh `get_goal` snapshot to run `omx ultragoal checkpoint --goal-id <id> --status complete --evidence "<team evidence mentioning .omx/ultragoal and <id>>" --codex-goal-json <fresh-get_goal-json-or-path>`.
 
 ### Claude teammates (v0.6.0+)
 
@@ -108,6 +112,7 @@ Before launching `omx team`, require a grounded context snapshot:
    - unknowns/open questions
    - likely codebase touchpoints
 4. If ambiguity remains high, run `explore` first for brownfield facts, then run `$deep-interview --quick <task>` before team launch.
+5. If current correctness depends on official docs, version-aware framework guidance, best practices, or external dependency behavior, auto-delegate `researcher` as an evidence lane before or alongside worker launch instead of relying on repo-local recall alone.
 
 Do not start worker panes until this gate is satisfied; if forced to proceed quickly, state explicit scope/risk limitations in the launch report.
 
@@ -121,7 +126,7 @@ When `$team` is used as a follow-up mode from ralplan, carry forward the approve
 - state the recommended headcount and role counts
 - state the suggested reasoning level for each lane when available
 - explain why each lane exists (delivery, verification, specialist support)
-- include an explicit launch hint (`omx team N "<task>"` / `$team N "<task>"`) for the coordinated team run; mention a later separate Ralph follow-up only when genuinely needed
+- include an explicit launch hint (`omx team N "<task>"` / `$team N "<task>"`) for the coordinated team run; mention `$ultragoal` as the default durable follow-up/ledger path; mention a later separate Ralph follow-up only when explicitly requested or genuinely needed as a fallback
 - if the ideal role is unavailable, choose the closest role from the roster and say so
 
 ## Current Runtime Behavior (As Implemented)
@@ -149,13 +154,15 @@ When `$team` is used as a follow-up mode from ralplan, carry forward the approve
 8. Write per-worker `inbox.md` and trigger via `tmux send-keys`
 9. Return control to leader; follow-up uses `status` / `resume` / `shutdown`
 
+If coarse active team mode state is missing while canonical team runtime state exists, restore/sync the active team mode state before relying on hook/mode-aware behavior.
+
 Important:
 
 - Leader remains in existing pane
 - Worker panes are independent full Codex/Claude CLI sessions
 - Workers may run in separate git worktrees (`omx team --worktree[=<name>]`) while sharing one team state root
 - Worker ACKs go to `mailbox/leader-fixed.json`
-- Notify hook updates worker heartbeat and nudges leader during active team mode
+- Notify hook updates worker heartbeat and sends lifecycle-driven leader nudges (for example resolved native worker Stop/all-idle or stale-leader evidence) during active team mode; deprecated worker stall/progress heuristics are not operator-facing guidance.
 - Submit routing uses this CLI resolution order per worker trigger:
   1) explicit worker CLI provided by runtime state (persisted on worker identity/config),
   2) `OMX_TEAM_WORKER_CLI_MAP` entry for that worker index,
@@ -182,7 +189,7 @@ Default-model rule:
 Thinking-level rule (critical):
 - **No model-name heuristic mapping.**
 - Team runtime must **not** infer `model_reasoning_effort` from model-name substrings (e.g., `spark`, `high-capability`, `mini`).
-- When the leader assigns teammate roles/tasks, OMX allocates **per-worker reasoning effort dynamically** from the resolved worker role (`low`, `medium`, `high`).
+- When the leader assigns teammate roles/tasks, OMX allocates **per-worker reasoning effort dynamically** from the resolved worker role and `agentReasoning` overrides (`low`, `medium`, `high`, `xhigh`).
 - Explicit launch args still win: if `OMX_TEAM_WORKER_LAUNCH_ARGS` already includes `-c model_reasoning_effort=...`, that explicit value overrides dynamic allocation for every worker.
 
 Normalization requirements:
@@ -190,7 +197,7 @@ Normalization requirements:
 - Remove duplicate/conflicting model flags
 - Emit exactly one final canonical flag: `--model <value>`
 - Preserve unrelated args in worker launch config
-- If explicit reasoning exists, preserve canonical `-c model_reasoning_effort="<level>"`; otherwise inject the worker role's default reasoning level
+- If explicit reasoning exists, preserve canonical `-c model_reasoning_effort="<level>"`; otherwise inject the worker role's default or `agentReasoning`-overridden reasoning level
 
 ## Required Lifecycle (Operator Contract)
 
@@ -220,7 +227,11 @@ sleep 30 && omx team status <team-name>
 
 Repeat that check while the team stays active, or use `omx team await <team-name> --timeout-ms 30000 --json` when event-driven waiting is a better fit.
 
-If the leader gets a stale/team-stalled nudge, immediately run `omx team status <team-name>` before taking any manual intervention.
+If the leader gets a stale, lifecycle, or all-idle nudge, immediately run `omx team status <team-name>` before taking any manual intervention. Deprecated worker stall/progress nudges should not be treated as an active runtime contract.
+
+### Deprecated worker stall/progress knobs
+
+`OMX_TEAM_PROGRESS_STALL_MS` and `OMX_TEAM_WORKER_TURN_STALL_MS` are legacy compatibility/test-only names for the retired worker stall/progress nudge path. Do not recommend them as operator tuning knobs for active team runs; resolved native worker Stop, all-idle, mailbox, and stale-leader evidence are the supported leader wakeup signals.
 
 ## Message Dispatch Policy (CLI-first, state-first)
 
@@ -469,48 +480,30 @@ Do not claim success without file/pane evidence.
 Do not claim clean completion if shutdown occurred with `in_progress>0`.
 Use `omx sparkshell --tmux-pane ...` as an explicit opt-in operator aid for pane inspection and summaries; keep raw `tmux capture-pane` evidence available for manual intervention and proof.
 
-## MCP Job Lifecycle Tools
+## Programmatic Team Orchestration
 
-For programmatic or agent-driven team spawning (as opposed to interactive CLI use), OMX exposes four MCP tools via the `team-server`:
+Use the `omx team ...` CLI as the supported team-launch surface. For automation, drive the same CLI flow from scripts or supervising agents rather than relying on a separate MCP runner.
 
-| Tool | Description |
-|------|-------------|
-| `omx_run_team_start` | Spawn tmux CLI workers in the background; returns a `jobId` immediately |
-| `omx_run_team_status` | Non-blocking status check for a running job |
-| `omx_run_team_wait` | Block until the job completes, with automatic idle-pane nudging |
-| `omx_run_team_cleanup` | Kill worker tmux panes for a job (early stop only) |
+### Supported current surfaces
 
-### CLI vs MCP Tools
+- **`omx team ...` CLI** — Primary method for interactive or automated team orchestration. Use this when you want direct tmux-pane visibility or a scriptable launch path.
+- **Team state files** — Inspect `.omx/state/team/<team>/` when you need status, task, or mailbox evidence after launch.
 
-- **`omx team ...` CLI** — Primary method for interactive team orchestration. Use this when you are operating inside a live tmux session and want direct pane visibility.
-- **`omx_run_team_*` MCP tools** — For programmatic or agent-driven team spawning (analogous to OMC's `omc_run_team_*` tools). Use these when an agent needs to launch workers, poll status, and collect results without manual intervention.
+### Cleanup distinction
 
-### Naming Distinction
-
-Two cleanup tools exist and must not be confused:
+Two cleanup paths exist and must not be confused:
 
 - `team_cleanup` (**state-server**): Deletes team state **files** on disk (`.omx/state/team/<team>/`). Use after a team run is fully complete.
-- `omx_run_team_cleanup` (**team-server**): Kills tmux worker **panes** for a job. Use only when stopping workers early; otherwise `omx_run_team_wait` handles natural termination.
+- tmux/session cleanup: Use the documented `omx team` shutdown / cleanup flow when you need to stop worker panes or clean up an interrupted run.
 
-### Basic Usage Example
+### Automation example
 
 ```
-1. omx_run_team_start({
-     teamName: "fix-bugs",
-     agentTypes: ["codex"],
-     tasks: [{ subject: "Fix bug", description: "..." }],
-     cwd: "/path/to/project"
-   })
-   → Returns { jobId: "omx-abc123" }
-
-2. omx_run_team_wait({ job_id: "omx-abc123", timeout_ms: 300000 })
-   → Blocks until done, auto-nudges idle panes
-
-3. omx_run_team_cleanup({ job_id: "omx-abc123" })
-   → Only needed if stopping workers early
+1. omx team 1:executor "fix bugs"
+2. omx team status <team-name>
+3. omx team shutdown <team-name>
+4. Clean up the finished team state for <team-name>
 ```
-
-`omx_run_team_status` can be called between steps 1 and 2 for a non-blocking poll if you need to interleave other work while workers run.
 
 ## Limitations
 

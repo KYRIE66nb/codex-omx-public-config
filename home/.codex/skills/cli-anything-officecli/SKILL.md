@@ -1,6 +1,6 @@
 ---
 name: cli-anything-officecli
-description: Check, fix, report, and generate thesis-style DOCX files from natural-language instructions by wrapping the real officecli binary.
+description: "Generate and fix DOCX reports."
 ---
 
 # cli-anything-officecli

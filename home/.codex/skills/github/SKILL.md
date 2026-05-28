@@ -1,6 +1,6 @@
 ---
 name: github
-description: GitHub 集成。识别 GitHub 链接、使用 gh CLI 获取上下文、关联到 commit、执行 GitHub 操作。自动触发。
+description: "github workflow."
 argument-hint: "<url | #issue | PR N>"
 ---
 

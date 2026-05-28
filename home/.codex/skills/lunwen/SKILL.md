@@ -1,6 +1,6 @@
 ---
 name: lunwen
-description: Use when the task concerns a Chinese graduation thesis, course-design paper, technical report, or thesis-style `.docx` deliverable with template alignment, sample analysis, chapter drafting, abstract/references, or thesis-specific Word formatting requirements.
+description: "Chinese thesis writing workflow."
 ---
 
 # Lunwen

@@ -1,6 +1,6 @@
 ---
-name: "bug-finder"
-description: "Investigate, reproduce, and fix software bugs across frontend, backend, tests, and CI. Use when the user asks to debug errors, find root causes, triage regressions, explain failures, or verify bug fixes."
+name: bug-finder
+description: Debug bugs with reproduction, root cause, minimal fix, and verification.
 ---
 
 # Bug Finder Skill

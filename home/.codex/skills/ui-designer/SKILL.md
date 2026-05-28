@@ -1,6 +1,6 @@
 ---
-name: "ui-designer"
-description: "Design and implement intentional user interfaces for web and app products. Use when the user asks for UI design, UX improvements, page redesigns, visual systems, component polish, responsive layout work, or accessibility-minded frontend implementation."
+name: ui-designer
+description: Design and implement polished user interfaces.
 ---
 
 # UI Designer Skill

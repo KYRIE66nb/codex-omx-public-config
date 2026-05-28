@@ -1,6 +1,6 @@
 ---
-name: "rebuttal"
-description: "Workflow 4: Submission rebuttal pipeline. Parses external reviews, enforces coverage and grounding, drafts a safe text-only rebuttal under venue limits, and manages follow-up rounds."
+name: rebuttal
+description: "Draft paper rebuttals."
 ---
 
 # Workflow 4: Rebuttal

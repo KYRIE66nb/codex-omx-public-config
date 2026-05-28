@@ -1,6 +1,6 @@
 ---
 name: comm-lit-review
-description: Communications-domain literature review and related-work search with database-aware source control. Use when the task is about communications, wireless, networking, satellite/NTN, Wi-Fi, cellular, transport protocols, congestion control, routing, scheduling, MAC/PHY, rate adaptation, channel estimation, beamforming, or communication-system research and the user wants papers, prior art, a survey, related work, or a landscape summary. Prioritize IEEE Xplore and ScienceDirect, prefer formal publications over preprints, and separate foundational work from recent progress.
+description: "Communications literature review."
 ---
 
 # Comm Lit Review

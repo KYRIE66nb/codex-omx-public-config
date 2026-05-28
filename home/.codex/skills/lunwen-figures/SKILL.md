@@ -1,6 +1,6 @@
 ---
 name: lunwen-figures
-description: Use when a Chinese thesis or thesis-style report task requires generating, replacing, or validating diagrams, ER diagrams, UML/use-case figures, architecture figures, flowcharts, or system screenshots.
+description: "Chinese thesis figures workflow."
 ---
 
 # Lunwen Figures

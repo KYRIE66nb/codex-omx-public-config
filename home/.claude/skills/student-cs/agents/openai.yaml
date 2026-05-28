@@ -1,0 +1,4 @@
+interface:
+  display_name: "Student CS Pack"
+  short_description: "Template + memory CLI workflow"
+  default_prompt: "Use the student-cs local CLI pack to generate templates, manage memory index/query, or route natural-language instructions."

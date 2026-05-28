@@ -1,6 +1,6 @@
 ---
-name: "analyze-results"
-description: "Analyze ML experiment results, compute statistics, generate comparison tables and insights. Use when user says \"analyze results\", \"compare\", or needs to interpret experimental data."
+name: analyze-results
+description: "Analyze experiment results."
 ---
 
 # Analyze Experiment Results

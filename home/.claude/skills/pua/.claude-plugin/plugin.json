@@ -1,0 +1,21 @@
+{
+    "name": "pua",
+    "version": "1.1.1",
+    "description": "PUA Motivator -- forces Claude Code to exhaust all solutions before giving up, using corporate PUA rhetoric (Alibaba, ByteDance, Huawei, Tencent, Netflix, Musk, Jobs). Applies to all task types: code, research, writing, deployment, infra.",
+    "author": {
+        "name": "探微安全实验室",
+        "url": "https://github.com/tanweai"
+    },
+    "homepage": "https://github.com/tanweai/pua",
+    "repository": "https://github.com/tanweai/pua",
+    "license": "MIT",
+    "keywords": [
+        "pua",
+        "motivation",
+        "never-give-up",
+        "alibaba",
+        "corporate-culture",
+        "never-give-up",
+        "agent-team"
+    ]
+}

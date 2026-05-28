@@ -1,6 +1,6 @@
 ---
-name: "mermaid-diagram"
-description: "Generate Mermaid diagrams from user requirements. Save .mmd and .md files to figures/ with syntax verification. Supports flowcharts, sequence diagrams, class diagrams, ER diagrams, Gantt charts, and many more diagram types."
+name: mermaid-diagram
+description: "Generate Mermaid diagrams."
 ---
 
 # Mermaid Diagram Generator

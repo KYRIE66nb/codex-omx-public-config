@@ -10,7 +10,7 @@
 - `home/.codex/prompts`
 - `home/.codex/skills`
 - `home/.codex/memories/skills`
-- `home/.agents/skills` 和 `home/.agents/.skill-lock.json`
+- `home/.agents/.skill-lock.json`（兼容旧工具的技能锁文件）
 - `home/.omx/agents`
 - `home/.claude/agents`
 - `home/.claude/rules`
@@ -19,7 +19,9 @@
 - 脱敏模板:
   - `templates/.codex/config.toml`
   - `templates/.codex/.omx-config.json`
+  - `templates/.codex/hooks.json`
   - `templates/.claude/config.toml`
+  - `templates/.claude/settings.json`
   - `templates/.claude/api-key-helper.sh`
   - `templates/.config/codex/env.example`
   - `templates/shell/zshrc.codex-fragment.zsh`
@@ -37,9 +39,9 @@
 
 ## 当前版本
 
-- `codex-cli 0.115.0`
-- `oh-my-codex v0.11.13`
-- `Node.js v22.22.0`
+- `codex-cli 0.134.0`
+- `oh-my-codex v0.18.4`
+- `Node.js v24.13.1`
 - `darwin arm64`
 
 ## 快速复刻
@@ -94,6 +96,9 @@ CLAUDE_OPENAI_BASE_URL_VALUE="https://claw.xclawxx.top/v1"
 OPENCLAW_GATEWAY_URL="http://127.0.0.1:18789/hooks/wake"
 OPENCLAW_GATEWAY_TOKEN="..."
 OMX_NOTIFY_HOOK="/path/to/oh-my-codex/dist/scripts/notify-hook.js"
+OMX_CODEX_NATIVE_HOOK="/path/to/oh-my-codex/dist/scripts/codex-native-hook.js"
+OPENAI_API_KEY_VALUE="..."
+CLAUDE_OPENAI_API_KEY_VALUE="..."
 ```
 
 ## 目录说明

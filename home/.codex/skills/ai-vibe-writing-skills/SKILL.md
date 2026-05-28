@@ -1,6 +1,6 @@
 ---
-name: "ai-vibe-writing-skills"
-description: "Personalized writing assistant with style transfer, error memory, grammar checking, and long-term writing preferences. Use when users ask for writing polishing, style mimicry, iterative correction, bilingual grammar checks, or persistent writing preferences by domain."
+name: ai-vibe-writing-skills
+description: "Ai vibe writing skills workflow."
 ---
 
 # AI Vibe Writing Skills

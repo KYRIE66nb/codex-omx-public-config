@@ -1,0 +1,58 @@
+{
+  "env": {
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-6",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
+    "CLAUDE_PLUGIN_ROOT": "/Users/zhishixuebao/.claude/openviking-memory-plugin"
+  },
+  "permissions": {
+    "allow": [],
+    "deny": []
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/zhishixuebao/.claude/openviking-memory-plugin/hooks/session-start.sh",
+            "timeout": 12
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/zhishixuebao/.claude/openviking-memory-plugin/hooks/user-prompt-submit.sh",
+            "timeout": 8
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/zhishixuebao/.claude/openviking-memory-plugin/hooks/stop.sh",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash /Users/zhishixuebao/.claude/openviking-memory-plugin/hooks/session-end.sh",
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}

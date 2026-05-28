@@ -1,6 +1,6 @@
 ---
 name: memory-recall
-description: Recall relevant long-term memories extracted by OpenViking Session memory. Use when the user asks about past decisions, prior fixes, historical context, or what was done in earlier sessions.
+description: "memory recall workflow."
 context: fork
 allowed-tools: Bash
 ---

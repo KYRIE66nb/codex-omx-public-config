@@ -1,0 +1,22 @@
+{
+  "env": {
+    "ANTHROPIC_REASONING_MODEL": "xiaofeiji1.1",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "xiaofeiji1.1",
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:18792",
+    "ANTHROPIC_MODEL": "xiaofeiji1.1",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "xiaofeiji1.1",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "xiaofeiji1.1",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "CLAUDE_CODE_ATTRIBUTION_HEADER": "0",
+    "OPENAI_BASE_URL": "__CLAUDE_OPENAI_BASE_URL__",
+    "OPENAI_API_KEY": "__OPENAI_API_KEY__",
+    "OPENAI_MODEL": "xiaofeiji1.1",
+    "CLAUDE_OPENAI_BASE_URL": "__CLAUDE_OPENAI_BASE_URL__",
+    "CLAUDE_OPENAI_API_KEY": "__CLAUDE_OPENAI_API_KEY__",
+    "CLAUDE_OPENAI_MODEL": "xiaofeiji1.1",
+    "ANTHROPIC_API_KEY": "claude-openai-bridge-local"
+  },
+  "model": "xiaofeiji1.1",
+  "includeCoAuthoredBy": false,
+  "skipDangerousModePermissionPrompt": true
+}

@@ -1,7 +1,6 @@
 ---
-# officecli: v1.0.23
 name: officecli-docx
-description: "Use this skill any time a .docx file is involved -- as input, output, or both. This includes: creating Word documents, reports, letters, memos, or proposals; reading, parsing, or extracting text from any .docx file; editing, modifying, or updating existing documents; working with templates, tracked changes, comments, headers/footers, or tables of contents. Trigger whenever the user mentions 'Word doc', 'document', 'report', 'letter', 'memo', or references a .docx filename."
+description: "Create and edit Word DOCX."
 ---
 # officecli: v1.0.23
 
@@ -9,7 +8,9 @@ description: "Use this skill any time a .docx file is involved -- as input, outp
 
 ## BEFORE YOU START (CRITICAL)
 
-**Every time before using officecli, run this check:**
+**Before using officecli, prefer the local readiness check.**
+
+Do not perform a network update check on every small edit. It adds latency and can fail for reasons unrelated to the document. Use the network installer only when `officecli` is missing, the local command fails, or the task explicitly requires the latest OfficeCLI behavior.
 
 ```bash
 if ! command -v officecli &> /dev/null; then
@@ -17,14 +18,18 @@ if ! command -v officecli &> /dev/null; then
     curl -fsSL https://raw.githubusercontent.com/iOfficeAI/OfficeCli/main/install.sh | bash
     # Windows: irm https://raw.githubusercontent.com/iOfficeAI/OfficeCli/main/install.ps1 | iex
 else
-    CURRENT=$(officecli --version 2>&1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
-    LATEST=$(curl -fsSL https://api.github.com/repos/iOfficeAI/OfficeCLI/releases/latest | grep '"tag_name"' | sed -E 's/.*"v?([0-9.]+)".*/\1/')
-    if [ "$CURRENT" != "$LATEST" ]; then
-        echo "Upgrading officecli $CURRENT → $LATEST..."
-        curl -fsSL https://raw.githubusercontent.com/iOfficeAI/OfficeCli/main/install.sh | bash
-    else
-        echo "officecli $CURRENT is up to date"
-    fi
+    officecli --version
+fi
+```
+
+For formal delivery, tool debugging, or suspected stale CLI behavior, then run the slower update check:
+
+```bash
+CURRENT=$(officecli --version 2>&1 | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+LATEST=$(curl -fsSL https://api.github.com/repos/iOfficeAI/OfficeCLI/releases/latest | grep '"tag_name"' | sed -E 's/.*"v?([0-9.]+)".*/\1/')
+if [ "$CURRENT" != "$LATEST" ]; then
+    echo "Upgrading officecli $CURRENT -> $LATEST..."
+    curl -fsSL https://raw.githubusercontent.com/iOfficeAI/OfficeCli/main/install.sh | bash
 fi
 officecli --version
 ```
@@ -54,6 +59,35 @@ OfficeCLI is incremental: every `add`, `set`, and `remove` immediately modifies 
 3. **Verify after structural operations.** After adding a style, table, chart, or section, run `get` or `validate` before building on top of it.
 
 Running a 50-command script all at once means the first error cascades silently through every subsequent command. Running incrementally means the failure context is immediate and local — fix it and move on.
+
+For independent read-only inspections, run them in parallel when the environment supports safe parallel tool calls. For edits, keep mutation commands sequential and check each result.
+
+---
+# officecli: v1.0.23
+
+## Verification Depth
+
+Choose the lightest path that proves correctness.
+
+### Fast Path
+
+Allowed for one localized, reversible edit: a single paragraph/run/table cell, one image property, one equation style/property, one typo, or one small list/spacing adjustment.
+
+Required fast-path checks:
+
+1. Locate the target precisely with `view`, `query`, or `get`.
+2. Save or preserve the original file unless overwrite is explicit.
+3. Apply the smallest structured edit.
+4. Re-run `get` or `view annotated` for the affected object or nearby lines.
+5. Run `officecli validate doc.docx`.
+
+Do not run full `view issues`, full text extraction, full outline, PDF conversion, or every-page visual review unless the target check is ambiguous, validation fails, or layout risk appears.
+
+### Delivery Path
+
+Required for document creation, final/client-ready output, thesis/formal documents, templates, redlines/comments, tracked changes, headers/footers, TOC, citations/references, multi-region changes, pagination-sensitive edits, tables spanning pages, or print/PDF delivery.
+
+Delivery path uses the full QA section below, plus visual/rendered review when layout matters.
 
 ---
 # officecli: v1.0.23
@@ -231,9 +265,11 @@ Use color sparingly in documents -- accent color for headings or table headers, 
 ---
 # officecli: v1.0.23
 
-## QA (Required)
+## QA (Required On Delivery Path)
 
 **Assume there are problems. Your job is to find them.**
+
+For fast-path localized edits, use the Verification Depth fast-path checklist instead of this full QA block. Escalate into this full QA block when the task is broad, final-facing, layout-sensitive, or when fast-path checks reveal risk.
 
 ### Issue Detection
 
@@ -296,6 +332,8 @@ officecli validate doc.docx
 
 ### Verification Loop
 
+Use this loop for delivery-path work.
+
 1. Generate document
 2. Run `view issues` + `view outline` + `view text` + `validate`
 3. List issues found (if none found, look again more critically)
@@ -303,7 +341,7 @@ officecli validate doc.docx
 5. Re-verify -- one fix often creates another problem
 6. Repeat until a full pass reveals no new issues
 
-**Do not declare success until you've completed at least one fix-and-verify cycle.**
+**Do not declare delivery-path success until you've completed at least one fix-and-verify cycle.**
 
 **NOTE**: Unlike pptx, there is no visual preview mode (`view svg`/`view html`) for docx. Content verification relies on `view text`, `view annotated`, `view outline`, `view issues`, and `validate`. For visual verification, the user must open the file in Word.
 

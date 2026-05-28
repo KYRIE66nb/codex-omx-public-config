@@ -1,6 +1,6 @@
 ---
-name: "monitor-experiment"
-description: "Monitor running experiments, check progress, collect results. Use when user says \"check results\", \"is it done\", \"monitor\", or wants experiment output."
+name: monitor-experiment
+description: "Monitor experiment results."
 ---
 
 # Monitor Experiment Results

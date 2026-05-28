@@ -1,0 +1,7 @@
+interface:
+  display_name: "统计建模编程手"
+  short_description: "中文统计建模赛题编程流程检验指标与图表交付指南"
+  default_prompt: "Use $statistical-modeling-coder-zh to build a reproducible statistical modeling contest pipeline with Chinese guidance."
+
+policy:
+  allow_implicit_invocation: true

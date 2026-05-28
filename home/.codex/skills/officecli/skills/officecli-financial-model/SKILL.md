@@ -1,15 +1,6 @@
 ---
-# officecli: v1.0.24
 name: officecli-financial-model
-description: "Use this skill when the user wants to build a financial model,
-  3-statement model, DCF valuation, cap table, scenario analysis, or
-  financial projections in Excel. Trigger on: 'financial model',
-  '3-statement model', 'DCF', 'cap table', 'pro forma', 'projections',
-  'sensitivity analysis', 'waterfall', 'debt schedule', 'break-even',
-  'discounted cash flow', 'capitalization table', 'fundraising model',
-  'WACC calculation', 'scenario analysis model'.
-  Input is a text prompt with assumptions. Output is a single .xlsx file
-  with formula-driven, interconnected statement sheets."
+description: "Create Excel financial models."
 ---
 
 # Financial Model Skill
@@ -192,5 +183,5 @@ Read [creating.md](creating.md) and follow it step by step. It contains setup co
 ## References
 
 - [creating.md](creating.md) -- Complete financial model creation guide
-- [xlsx SKILL.md](../xlsx/SKILL.md) -- General xlsx reading, editing, and QA reference
+- [officecli-xlsx SKILL.md](../officecli-xlsx/SKILL.md) -- General xlsx reading, editing, and QA reference
 - [data-dashboard creating.md](../officecli-data-dashboard/creating.md) -- Batch syntax, chart presets, and CF basics

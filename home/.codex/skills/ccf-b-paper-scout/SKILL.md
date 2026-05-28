@@ -1,6 +1,6 @@
 ---
 name: "ccf-b-paper-scout"
-description: "作为 CCF-B 严格审稿人(Reviewer #2 风格)专注找刺和找弱点，输出可执行问题清单、风险雷达、实验补强与复现检查。用于论文投稿前诊断、拒稿风险排查、审稿式评估。"
+description: "CCF-B paper risk review."
 ---
 
 # Skill A: ccf-b-paper-scout (找刺/找弱点)

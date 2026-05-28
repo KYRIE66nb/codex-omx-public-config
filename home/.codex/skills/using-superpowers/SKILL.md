@@ -1,6 +1,6 @@
 ---
 name: using-superpowers
-description: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions
+description: "Use skills correctly."
 ---
 
 # Using Skills
@@ -10,6 +10,20 @@ description: Use when starting any conversation - establishes how to find and us
 Invoke relevant or requested skills before any response or action, including clarifying questions. If there is even a 1% chance a skill applies, invoke it first. If the skill turns out not to apply, you can stop using it after checking.
 
 In environments with a Skill tool, use that tool instead of reading skill files manually.
+
+## Legacy Quality Mode
+
+Prioritize content quality over context minimization.
+
+When a skill applies:
+
+1. Load the full primary `SKILL.md`, not just its name or short description.
+2. If the skill is an alias/router, immediately load the downstream primary skill(s) it points to.
+3. If the skill references task guides, examples, scripts, templates, or troubleshooting notes that are relevant to the request, read those before acting.
+4. Do not skip QA gates, visual verification, command sequencing rules, edge-case notes, or tool-specific caveats to save context.
+5. Use progressive disclosure only to avoid clearly irrelevant files, not to avoid necessary operational instructions.
+
+If context budget and quality conflict, choose quality and rely on later compaction rather than under-loading the skill.
 
 ## Red Flags
 
@@ -37,6 +51,7 @@ When multiple skills could apply, use this order:
 After invoking a skill:
 
 - Announce which skill you are using and why
+- Load enough related skill material to execute at full quality, especially for Office documents, spreadsheets, data analysis, coding, debugging, frontend work, and reviews
 - If the skill has a checklist, create a todo for each item
 - Follow the skill exactly unless it explicitly says it is flexible
 

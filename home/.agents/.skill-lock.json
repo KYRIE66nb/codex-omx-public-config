@@ -82,6 +82,114 @@
       "skillFolderHash": "cf113e96b87577e47d86fb8a157536fbeb27369c",
       "installedAt": "2026-03-02T13:16:16.212Z",
       "updatedAt": "2026-03-02T13:16:16.212Z"
+    },
+    "matlab": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills.git",
+      "skillPath": "scientific-skills/matlab/SKILL.md",
+      "skillFolderHash": "38d5b743fec4c59090ad857c7a3f87cf8a52b4a2",
+      "installedAt": "2026-04-17T14:18:40.809Z",
+      "updatedAt": "2026-04-17T14:18:40.809Z"
+    },
+    "networkx": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills.git",
+      "skillPath": "scientific-skills/networkx/SKILL.md",
+      "skillFolderHash": "d898ad7cb3a71368104659e9891e5b9fad3b663a",
+      "installedAt": "2026-04-17T14:18:46.246Z",
+      "updatedAt": "2026-04-17T14:18:46.246Z"
+    },
+    "pymoo": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills.git",
+      "skillPath": "scientific-skills/pymoo/SKILL.md",
+      "skillFolderHash": "b6d972c9541286c269c0e0e8655bdb0bda8facd6",
+      "installedAt": "2026-04-17T14:19:09.674Z",
+      "updatedAt": "2026-04-17T14:19:09.674Z"
+    },
+    "simpy": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills.git",
+      "skillPath": "scientific-skills/simpy/SKILL.md",
+      "skillFolderHash": "ff4f24ad6edc8900bc4d2b12d29fe692bf53f237",
+      "installedAt": "2026-04-17T14:19:34.203Z",
+      "updatedAt": "2026-04-17T14:19:34.203Z"
+    },
+    "statistical-analysis": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills.git",
+      "skillPath": "scientific-skills/statistical-analysis/SKILL.md",
+      "skillFolderHash": "7909ef2f20a3f865cc759e628a30b76164bedcd2",
+      "installedAt": "2026-04-17T14:19:35.793Z",
+      "updatedAt": "2026-04-17T14:19:35.793Z"
+    },
+    "statsmodels": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills.git",
+      "skillPath": "scientific-skills/statsmodels/SKILL.md",
+      "skillFolderHash": "273076e09877cfdc1275ae7248e7be0503a786cb",
+      "installedAt": "2026-04-17T14:19:36.469Z",
+      "updatedAt": "2026-04-17T14:19:36.469Z"
+    },
+    "sympy": {
+      "source": "K-Dense-AI/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/K-Dense-AI/scientific-agent-skills.git",
+      "skillPath": "scientific-skills/sympy/SKILL.md",
+      "skillFolderHash": "6ab3798a15d26b4e64ffabdb85c2ffe45a36cc5f",
+      "installedAt": "2026-04-17T14:19:37.081Z",
+      "updatedAt": "2026-04-17T14:19:37.081Z"
+    },
+    "ortools": {
+      "source": "tondevrel/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/tondevrel/scientific-agent-skills.git",
+      "skillPath": "skills/ortools/SKILL.md",
+      "skillFolderHash": "3e42c28c6eea232a86fb466063ecb9712bf390cc",
+      "installedAt": "2026-04-17T14:29:25.033Z",
+      "updatedAt": "2026-04-17T14:29:25.033Z"
+    },
+    "pyomo": {
+      "source": "tondevrel/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/tondevrel/scientific-agent-skills.git",
+      "skillPath": "skills/pyomo/SKILL.md",
+      "skillFolderHash": "16ab5b3cd63185da71a3a07e88c3f6328fc1af5b",
+      "installedAt": "2026-04-17T14:29:25.497Z",
+      "updatedAt": "2026-04-17T14:29:25.497Z"
+    },
+    "scipy": {
+      "source": "tondevrel/scientific-agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/tondevrel/scientific-agent-skills.git",
+      "skillPath": "skills/scipy/SKILL.md",
+      "skillFolderHash": "d08acc7348810b714e926f58e41b53baba71733d",
+      "installedAt": "2026-04-17T14:29:25.984Z",
+      "updatedAt": "2026-04-17T14:29:25.984Z"
+    },
+    "statistical-modeling-coder-zh": {
+      "source": "A350xt/Math-modeling-programer.skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/A350xt/Math-modeling-programer.skill.git",
+      "skillPath": "statistical-modeling-coder-zh/SKILL.md",
+      "skillFolderHash": "3cb6d904348e3fe9184e10a61223df0197ab12d0",
+      "installedAt": "2026-04-17T14:29:26.892Z",
+      "updatedAt": "2026-04-17T14:29:26.892Z"
+    },
+    "math-modeling": {
+      "source": "XiaoMaColtAI/math-modeling-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/XiaoMaColtAI/math-modeling-skill.git",
+      "skillPath": "SKILL.md",
+      "skillFolderHash": "e91a9114f6623a52638a398c6001eb14233e36b0",
+      "installedAt": "2026-04-17T14:29:28.515Z",
+      "updatedAt": "2026-04-17T14:29:28.515Z"
     }
   },
   "dismissed": {}

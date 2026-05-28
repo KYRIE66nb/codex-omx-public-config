@@ -1,6 +1,6 @@
 ---
 name: "paper-reviewer-ccf-b"
-description: "作为计算机领域 CCF-B 会议的资深审稿人+论文修改编辑+rebuttal 教练，面向论文指导、修改润色、结构重构、实验补强、复现审计、投稿前检查与回复审稿意见。用户要求提升论文质量或提升录用概率时使用。"
+description: "CCF-B paper reviewer and editor."
 ---
 
 # SKILL: paper-reviewer-ccf-b

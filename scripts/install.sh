@@ -11,6 +11,8 @@ target_home="${TARGET_HOME:-$HOME}"
 
 openai_base_url="${OPENAI_BASE_URL_VALUE:-https://tokenx24.com/v1}"
 claude_base_url="${CLAUDE_OPENAI_BASE_URL_VALUE:-https://claw.xclawxx.top/v1}"
+openai_api_key="${OPENAI_API_KEY_VALUE:-${OPENAI_API_KEY:-replace_me}}"
+claude_openai_api_key="${CLAUDE_OPENAI_API_KEY_VALUE:-${CLAUDE_OPENAI_API_KEY:-$openai_api_key}}"
 openclaw_gateway_url="${OPENCLAW_GATEWAY_URL:-http://127.0.0.1:18789/hooks/wake}"
 openclaw_gateway_token="${OPENCLAW_GATEWAY_TOKEN:-}"
 
@@ -23,6 +25,11 @@ if [[ -z "$notify_hook" ]] && command -v npm >/dev/null 2>&1; then
 fi
 if [[ -z "$notify_hook" ]]; then
   notify_hook="${target_home}/.volta/tools/image/packages/oh-my-codex/lib/node_modules/oh-my-codex/dist/scripts/notify-hook.js"
+fi
+
+codex_native_hook="${OMX_CODEX_NATIVE_HOOK:-}"
+if [[ -z "$codex_native_hook" ]] && [[ -n "$notify_hook" ]]; then
+  codex_native_hook="$(dirname "$notify_hook")/codex-native-hook.js"
 fi
 
 run() {
@@ -49,7 +56,7 @@ render_text() {
   fi
 
   mkdir -p "$(dirname "$dest")"
-  python3 - "$src" "$dest" "$target_home" "$notify_hook" "$openai_base_url" "$claude_base_url" <<'PY'
+  python3 - "$src" "$dest" "$target_home" "$notify_hook" "$openai_base_url" "$claude_base_url" "$codex_native_hook" "$openai_api_key" "$claude_openai_api_key" <<'PY'
 import pathlib
 import sys
 
@@ -59,12 +66,18 @@ home = sys.argv[3]
 notify_hook = sys.argv[4]
 openai_base_url = sys.argv[5]
 claude_base_url = sys.argv[6]
+codex_native_hook = sys.argv[7]
+openai_api_key = sys.argv[8]
+claude_openai_api_key = sys.argv[9]
 
 text = src.read_text()
 text = text.replace("__HOME__", home)
 text = text.replace("__OMX_NOTIFY_HOOK__", notify_hook)
+text = text.replace("__OMX_CODEX_NATIVE_HOOK__", codex_native_hook)
 text = text.replace("__OPENAI_BASE_URL__", openai_base_url)
 text = text.replace("__CLAUDE_OPENAI_BASE_URL__", claude_base_url)
+text = text.replace("__OPENAI_API_KEY__", openai_api_key)
+text = text.replace("__CLAUDE_OPENAI_API_KEY__", claude_openai_api_key)
 dest.write_text(text)
 PY
 }
@@ -113,8 +126,10 @@ sync_tree "$repo_root/home/.claude/" "$target_home/.claude/"
 sync_tree "$repo_root/home/vendor_imports/" "$target_home/vendor_imports/"
 
 render_text "$repo_root/templates/.codex/config.toml" "$target_home/.codex/config.toml"
+render_text "$repo_root/templates/.codex/hooks.json" "$target_home/.codex/hooks.json"
 render_omx_json "$repo_root/templates/.codex/.omx-config.json" "$target_home/.codex/.omx-config.json"
 render_text "$repo_root/templates/.claude/config.toml" "$target_home/.claude/config.toml"
+render_text "$repo_root/templates/.claude/settings.json" "$target_home/.claude/settings.json"
 render_text "$repo_root/templates/shell/zshrc.codex-fragment.zsh" "$target_home/.config/codex/zshrc.codex-fragment.zsh"
 
 if [[ "$dry_run" -eq 1 ]]; then
@@ -126,4 +141,3 @@ else
 fi
 
 printf 'Done. If this is a fresh machine, run: omx doctor\n'
-

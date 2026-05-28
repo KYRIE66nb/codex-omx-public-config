@@ -1,6 +1,6 @@
 ---
-name: "student-cs"
-description: "Operate a local CS-student skill pack in a repository using deterministic Node CLIs and Markdown templates. Use when the user asks to generate offer/content/study/review/debug/paper templates, index or query memory notes, or run natural-language routing with student-cs commands."
+name: student-cs
+description: "CS student local workflow."
 ---
 
 # Student CS Skill

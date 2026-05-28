@@ -1,6 +1,6 @@
 ---
 name: "ccf-b-paper-shepherd"
-description: "作为 CCF-B 论文 Shepherd(修改编辑+写作教练)基于弱点清单对论文逐节可替换改写，优先修复 P0/P1 风险，输出 camera-ready checklist 和 rebuttal 模板。用于论文润色、结构重构与投稿前提质。"
+description: "CCF-B paper revision coach."
 ---
 
 # Skill B: ccf-b-paper-shepherd (按弱点改稿)

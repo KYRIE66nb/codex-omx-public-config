@@ -1,0 +1,99 @@
+{
+  "state": {
+    "__HOME__/.codex/hooks.json:session_start:0:0": {
+      "trusted_hash": "sha256:3029728ebf08414b3d921ea22d79a2b01540a26b72809efc3c35650b1baede3a"
+    },
+    "__HOME__/.codex/hooks.json:pre_tool_use:0:0": {
+      "trusted_hash": "sha256:4c5987b4b37e39b85eb651e400209cb53c7d3dbb2ed1004bfabb24152d8fb06f"
+    },
+    "__HOME__/.codex/hooks.json:post_tool_use:0:0": {
+      "trusted_hash": "sha256:e395f888bf9beaeb2391dba7df1a7b98cdd22cb4b4645be87c10f30ddb05ecbd"
+    },
+    "__HOME__/.codex/hooks.json:user_prompt_submit:0:0": {
+      "trusted_hash": "sha256:861d414013d582d051f5a23035549f646452ea58b0a2b97257ed0409fc49d71b"
+    },
+    "__HOME__/.codex/hooks.json:pre_compact:0:0": {
+      "trusted_hash": "sha256:5c5ea2d9de631a6b8aa29fd9736a8787b52727b9741a29af380b19489f8ed7e8"
+    },
+    "__HOME__/.codex/hooks.json:post_compact:0:0": {
+      "trusted_hash": "sha256:3391c890f92b06c83ce62da78e23dc2b07094ac26b0521ce2fcf0e458acc37c5"
+    },
+    "__HOME__/.codex/hooks.json:stop:0:0": {
+      "trusted_hash": "sha256:d7e523764e605a72659190e2b53540e927ef3e374599522ff7b6dc03e823e4d1"
+    }
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"node\" \"__OMX_CODEX_NATIVE_HOOK__\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"node\" \"__OMX_CODEX_NATIVE_HOOK__\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"node\" \"__OMX_CODEX_NATIVE_HOOK__\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"node\" \"__OMX_CODEX_NATIVE_HOOK__\""
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"node\" \"__OMX_CODEX_NATIVE_HOOK__\""
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"node\" \"__OMX_CODEX_NATIVE_HOOK__\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"node\" \"__OMX_CODEX_NATIVE_HOOK__\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}
